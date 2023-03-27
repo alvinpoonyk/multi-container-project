@@ -44,6 +44,8 @@ services:
       - /app/node_modules # ensure that the node modules in the directory does not get overwritten by any folder we have on our local machine
       - ./client:/app
   worker:
+    depends_on:
+      - redis
     build:
       context: ./worker
       dockerfile: Dockerfile.dev
