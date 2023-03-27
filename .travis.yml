@@ -13,3 +13,13 @@ after_success:
         - docker build -t alvinpoon96/multi-container-nginx ./nginx 
         - docker build -t alvinpoon96/multi-container-server ./server
         - docker build -t alvinpoon96/multi-container-worker ./worker      
+        # Log in to the docker CLI
+        # Echo the env variable docker_password (means to send it in to the stdin channel)
+        # pipe it the next command, which is the login command
+        # --password-stdin tells it that it will receive it via the stdin channel
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+        # Take those image and push them to docker hub
+        - docker push alvinpoon96/multi-container-client
+        - docker push alvinpoon96/multi-container-nginx
+        - docker push alvinpoon96/multi-container-server
+        - docker push alvinpoon96/multi-container-worker
